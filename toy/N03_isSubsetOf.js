@@ -33,26 +33,25 @@ const isSubsetOf = function (base, sample) {
   return true
 };
 
-// 인덱스 이용
+// 인덱스
 const isSubsetOf = function (base, sample) {
   base.sort((a, b) => a - b);
   sample.sort((a, b) => a - b);
+  
   let baseIndex = 0;
   let sampleIndex = 0;
-  for (let i = 0; i < sample.length; i++) {
-    while(baseIndex < base.length && sampleIndex < sample.length) {
-      if (sampleIndex === sample.length-1) return true;
-      // if (baseIndex === base.length-1) return false;
-      // if (base[baseIndex] > sample[sampleIndex]) return false;
-
-      if (base[baseIndex] === sample[sampleIndex]) {
-        baseIndex++;
-        sampleIndex++;
-      }
-      if (base[baseIndex] < sample[sampleIndex]) {
-        baseIndex++;
-      }
+  
+  while (baseIndex < base.length && sampleIndex < sample.length) {
+    if (sampleIndex === sample.length - 1) return true;
+    if (baseIndex === base.length - 1) return false;
+    if (base[baseIndex] > sample[sampleIndex]) return false;
+    
+    if (base[baseIndex] === sample[sampleIndex]) {
+      baseIndex++;
+      sampleIndex++;
+    }
+    if (base[baseIndex] < sample[sampleIndex]) {
+      baseIndex++;
     }
   }
-  return false;
 };
