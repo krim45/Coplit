@@ -41,7 +41,6 @@ class BinarySearchTree {
       }
       return this.right.contains(value);
     }
-    return false;
   }
   // 전위 순회
   preorder(callback) {
