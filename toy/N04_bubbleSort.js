@@ -1,3 +1,4 @@
+// 버블 정렬 
 const bubbleSort = function (arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     let isSorted = true;
@@ -17,4 +18,20 @@ const bubbleSort = function (arr) {
     }
   }
   return arr
+};
+
+// 삽입 정렬
+const bubbleSort = function (arr) {
+  for (let i = 1; i < arr.length; i++) {
+    const target = arr[i];
+    for (let j = i - 1; j >= 0; j--) {
+      if (target < arr[j]) {
+        arr[j+1] = arr[j];
+        arr[j] = target;
+      }else{
+        break;
+      }
+    }
+  }
+  return arr;
 };
