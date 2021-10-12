@@ -21,7 +21,7 @@ const bubbleSort = function (arr) {
 };
 
 // 삽입 정렬
-const bubbleSort = function (arr) {
+const InsertSort = function (arr) {
   for (let i = 1; i < arr.length; i++) {
     const target = arr[i];
     for (let j = i - 1; j >= 0; j--) {
