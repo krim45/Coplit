@@ -24,28 +24,28 @@ const powerSet = function (str) {
 };
 
 
-// 순열 알고리즘
+// 조합 알고리즘
 const powerSet = function (str) {
   // 중복 제거, 순서 정렬된 문자를 담은 배열
   const letter = str.split('').sort().filter((v, i, a) => v !== a[i - 1]);
   const arr = [''];
 
-  const getPermutation = (arr, len) => {
+  const getCombination = (arr, len) => {
     if (len === 1) return arr.map(v => [v]);
     const result = [];
 
     arr.forEach((fixed, idx, arr) => {
       const sliceArr = arr.slice(idx + 1);
-      const newPermu = getPermutation(sliceArr, len - 1);
-      const permuatations = newPermu.map(permu => [fixed, ...permu]);
-      result.push(...permuatations);
+      const newCombi = getCombination(sliceArr, len - 1);
+      const combinations = newCombi.map(combi => [fixed, ...combi]);
+      result.push(...combinations);
     })
 
     return result
   }
 
   for (let i = 1; i <= str.length; i++) {
-    arr.push(...getPermutation(letter, i).map(arr => arr.join('')))
+    arr.push(...getCombination(letter, i).map(arr => arr.join('')))
   }
 
   return arr.sort();
