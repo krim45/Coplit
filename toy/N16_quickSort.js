@@ -1,3 +1,24 @@
+// better way
+const quickSort = function (arr, callback = (value) => value) {
+  if (arr.length <= 1) return arr;
+
+  let left = [];
+  let right = [];
+  const pivot = arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+    if (callback(arr[i]) < callback(pivot)) left.push(arr[i])
+    else right.push(arr[i])
+  }
+  
+  left = quickSort(left, callback);
+  right = quickSort(right, callback);
+
+  return [...left, pivot, ...right];
+};
+
+
+// naive
 const swap = (idx1, idx2, arr) => {
   let tmp = arr[idx1];
   arr[idx1] = arr[idx2];
