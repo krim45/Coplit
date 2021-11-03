@@ -23,13 +23,14 @@ function getDirections(matrix, from, to) {
 
   function bfs(from) {
     queue.push(from);
+    visited[from] = true;
 
     while (queue.length > 0) {
       let start = queue.shift();
+      if (start === to) return true;
 
       for (let next = 0; next < matrix[start].length; next++) {
         if (matrix[start][next] === 1 && !visited[next]) {
-          if (next === to) return true;
           visited[next] = true;
           queue.push(next);
         }
