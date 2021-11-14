@@ -25,39 +25,33 @@ const swap = (idx1, idx2, arr) => {
   arr[idx2] = tmp;
 }
 
-const quickSort = function (arr, callback = (value) => value) {
-  const quick = (left, right) => {
-    if (left >= right) return;
+const quickSort = function (arr, callback = (value) => value, left = 0, right = arr.length - 1) {
+  if (left >= right) return arr;
 
-    // 가장 작은 인덱스를 pivot으로 설정
-    let low = left;
-    let high = right;
-    let pivot = callback(arr[low]);
+  let low = left;
+  let high = right;
+  let pivot = arr[low];  // 가장 작은 인덱스를 pivot으로 설정
 
-    while (left < right) {
-      // 왼쪽부터 pivot 보다 큰 요소를 찾는다.
-      while (left < high && callback(arr[left]) <= pivot) {
-        left++;
-      }
-      // 오른쪽부터 pivot 보다 작거나 같은 요소를 찾는다.
-      while (low < right && pivot < callback(arr[right])) {
-        right--;
-      }
-      // 왼쪽 큰 값 인덱스가 오른쪽 작은 값 인덱스보다 작으면 스왑
-      if (left < right) {
-        swap(left, right, arr);
-      }
+  while (left < right) {
+    // 왼쪽부터 pivot 보다 큰 요소를 찾는다.
+    while (left < high && callback(arr[left]) <= callback(pivot)) {
+      left++;
     }
-    // pivot 인덱스보다 오른쪽 작은 값 인덱스가 크면 스왑
-    if (low < right) {
-      swap(low, right, arr)
+    // 오른쪽부터 pivot 보다 작은 요소를 찾는다.
+    while (low < right && callback(pivot) <= callback(arr[right])) {
+      right--;
     }
-    // pivot 기준으로 양쪽을 다시 정렬
-    quick(low, right - 1);
-    quick(right + 1, high);
-
-    return arr
+    // 왼쪽 큰 값 인덱스가 오른쪽 작은 값 인덱스보다 작으면 스왑
+    if (left < right) {
+      swap(left, right, arr);
+    }
   }
+  // pivot의 위치 정렬
+  swap(low, right, arr)
 
-  return quick(0, arr.length - 1)
+  // pivot 기준으로 양쪽을 다시 정렬
+  quickSort(arr, callback, low, right - 1);
+  quickSort(arr, callback, right + 1, high);
+
+  return arr
 };
