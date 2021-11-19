@@ -12,7 +12,7 @@ function getLeftChildIdx(idx) {
 }
 
 function getRightChildIdx(idx) {
-  return (idx + 1) * 2;
+  return idx * 2 + 2;
 }
 
 function insert(heap, item) {
@@ -29,10 +29,9 @@ function insert(heap, item) {
 }
 
 function removeRoot(heap) {
-  if (heap.length === 1) return heap.pop()
-
-  const minValue = heap[0];
-  heap[0] = heap.pop();
+  swap(0, heap.length - 1, heap);
+  heap.pop();
+  
   let len = heap.length;
   let idx = 0;
   let leftIdx = getLeftChildIdx(idx);
@@ -50,7 +49,7 @@ function removeRoot(heap) {
       break
     }
   }
-  return minValue
+  return heap
 }
 
 const binaryHeap = function (arr) {
@@ -63,7 +62,8 @@ const heapSort = function (arr) {
   let minHeap = binaryHeap(arr);
   const result = [];
   while (minHeap.length > 0) {
-    result.push(removeRoot(minHeap));
+    result.push(minHeap[0])
+    minHeap = removeRoot(minHeap);
   }
   return result;
 };
