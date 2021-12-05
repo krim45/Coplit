@@ -1,26 +1,22 @@
-let longestPalindrome = function (str) {
+const longestPalindrome = function (str) {
+  const reversed = str.split('').reverse().join('');
   const len = str.length
-  // const reversed = str.split('').reverse().join('');
   let result = '';
-  let left;
-  let right;
 
-  for (let i = 0; i < len; i++) {
-    for (let j = 0; j < len - i; j++) {
-      if (str[i] === str[len - 1 - j]) {
+  for (let left = 0; left < len; left++) {
+    for (let right = 0; right < len; right++) {
+      if (str[left] === reversed[right]) {
+        let leftIdx = left;
         let tmp = '';
-        left = i;
-        right = j;
-        while (str[left] === str[len - 1 - right] && left < len && right < len) {
-          tmp += str[left];
-          left++;
+
+        while (str[leftIdx] === reversed[right] && right < len) {
+          tmp += str[leftIdx];
+          leftIdx++;
           right++;
         }
-        // while 문 좀더 효율적이게 만들어야함
+
         if (result.length < tmp.length) {
           result = tmp;
-          i = left - 1;
-          j = right - 1;
         } 
       }
     }
