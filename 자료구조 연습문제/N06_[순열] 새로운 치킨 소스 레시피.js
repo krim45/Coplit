@@ -1,3 +1,39 @@
+// reference
+function newChickenRecipe(stuffArr, choiceNum) {
+  const filtered = stuffArr.filter(stuff => {
+    let str = stuff.toString()
+    let count = 0;
+
+    for (let i = 0; i < str.length; i++) {
+      if (str[i] === '0') count++;
+      if (count >= 3) return false;
+    }
+    return true
+  })
+
+  if (filtered.length < choiceNum) return []
+
+  filtered.sort((a, b) => a - b);
+  const result = [];
+
+  const permutation = (arr, bucket, rest) => {
+    if (rest === 0) {
+      result.push(bucket);
+      return
+    }
+
+    for (let i = 0; i < arr.length; i++) {
+      const fix = arr[i];
+      const sliceArr = arr.slice();
+      sliceArr.splice(i, 1);
+      permutation(sliceArr, bucket.concat(fix), rest - 1);
+    }
+  }
+  permutation(filtered, [], choiceNum);
+
+  return result
+}
+
 // 순열 refactoring
 function newChickenRecipe(stuffArr, choiceNum) {
   const newStuff = stuffArr.filter(stuff => !/0{3}/.test(stuff))
